@@ -87,3 +87,15 @@ go-api-backend
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+Microservices layout
+--------------------
+
+- `cmd/user-service` : user microservice (list/create users)
+- `cmd/gateway` : gateway proxy which forwards `/api/*` to user-service
+
+Run locally with Docker compose:
+
+```bash
+docker-compose up --build
+```
