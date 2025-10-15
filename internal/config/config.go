@@ -2,8 +2,6 @@ package config
 
 import (
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -13,8 +11,8 @@ type Config struct {
 }
 
 func LoadConfig() (*Config, error) {
-	// Load .env if present; ignore error if file missing so local dev works without it
-	_ = godotenv.Load()
+	// Do not load .env automatically in production builds (Render provides env vars).
+	// Rely on environment variables only.
 
 	port := os.Getenv("PORT")
 	if port == "" {
