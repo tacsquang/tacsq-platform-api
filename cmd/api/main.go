@@ -30,8 +30,14 @@ func main() {
 	router := routes.SetupRoutes()
 
 	// Start the HTTP server
-	log.Printf("Starting server on %s", cfg.Port)
-	if err := http.ListenAndServe(cfg.Port, router); err != nil {
+	bindAddr := cfg.Port
+	// If cfg.Port starts with ':' assume it's just the port and bind to 0.0.0.0
+	if len(bindAddr) > 0 && bindAddr[0] == ':' {
+		bindAddr = "0.0.0.0" + bindAddr
+	}
+
+	log.Printf("Starting server on %s", bindAddr)
+	if err := http.ListenAndServe(bindAddr, router); err != nil {
 		log.Fatalf("could not start server: %v", err)
 	}
 }
