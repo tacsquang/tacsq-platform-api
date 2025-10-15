@@ -19,6 +19,12 @@ func LoadConfig() (*Config, error) {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = ":8080"
+	} else {
+		// Render (and some platforms) provide PORT without a leading colon, e.g. "10000"
+		// Ensure the port string starts with ':' for ListenAndServe
+		if port[0] != ':' {
+			port = ":" + port
+		}
 	}
 
 	return &Config{

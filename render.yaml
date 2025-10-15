@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tacsq-platform-api
+    env: go
+    plan: free
+    repo: https://github.com/tacsquang/tacsq-platform-api
+    branch: main
+    buildCommand: "go build -o server ./cmd/api"
+    startCommand: "./server"
+    envVars:
+      - key: GIN_MODE
+        value: release
